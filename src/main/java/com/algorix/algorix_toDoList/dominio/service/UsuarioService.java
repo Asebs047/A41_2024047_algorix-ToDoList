@@ -19,12 +19,13 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario buscarUsuarioPorId(Integer id) {
-        return null;
+        Usuario usuario = crud.findById(id).orElse(null)
+        return usuario;
     }
 
     @Override
     public void guardarUsuario(Usuario usuario) {
-
+        crud.save(usuario)
     }
 
     @Override
