@@ -6,8 +6,7 @@ import java.util.List;
 
 public interface ITareaService {
     List<Tarea> listarTareas();
-    Tarea buscarTareasPendientes(String estado);
-    Tarea buscarTareasFinalizadas(String estado);
+    List<Tarea> filtrarTareas(String estado);
     void guardarTarea(Tarea tarea);
     void eliminarTarea(Tarea tarea);
 }
