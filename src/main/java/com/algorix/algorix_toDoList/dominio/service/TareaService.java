@@ -2,7 +2,6 @@ package com.algorix.algorix_toDoList.dominio.service;
 
 import com.algorix.algorix_toDoList.persistence.crud.TareaCrud;
 import com.algorix.algorix_toDoList.persistence.entity.Tarea;
-import com.algorix.algorix_toDoList.persistence.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +40,12 @@ public class TareaService implements ITareaService{
     public void eliminarTarea(Tarea tarea) {
         crud.delete(tarea);
     }
+
+    @Override
+    public Tarea buscarTareaPorId(Integer id) {
+        Tarea tarea = crud.findById(id).orElse(null);
+        return tarea;
+    }
+
+
 }
