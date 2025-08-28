@@ -11,6 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -129,7 +131,7 @@ public class AlgorixToDoListApplication implements CommandLineRunner {
 				var email = consola.nextLine();
 				logger.info("Ingrese la contraseña:");
 				var pass = consola.nextLine();
-				var usuario = new com.algorix.algorix_toDoList.persistence.entity.Usuario();
+				var usuario = new Usuario();
 				usuario.setNombre(nombre);
 				usuario.setApellido(apellido);
 				usuario.setTelefono(telefono);
@@ -218,7 +220,32 @@ public class AlgorixToDoListApplication implements CommandLineRunner {
 				List<Tarea> tareas = tareaService.filtrarTareas("teminada");
 				tareas.forEach(tarea -> logger.info(tarea.toString() + sl));
 			}
-			case 4 -> {}
+			case 4 -> {
+				logger.info("Ingrese el Titulo:");
+				var titulo = consola.nextLine();
+				logger.info("Ingrese la Descripcion:");
+				var descripcion = consola.nextLine();
+				logger.info("Ingrese la Fecha limite (aaaa-mm-dd):");
+				var fechaStr = consola.nextLine();
+				LocalDate fecha = null;
+				try {
+					fecha = LocalDate.parse(fechaStr);
+				} catch (DateTimeParseException e) {
+					logger.error("Formato de fecha inválido. Use aaaa-mm-dd");
+				}
+				logger.info("Ingrese el Estado (pendiente/terminada):");
+				var estado = consola.nextLine();
+				logger.info("Ingrese la id del encargado:");
+				var encargado = Integer.parseInt(consola.nextLine());
+				var tarea = new Tarea();
+				tarea.setTitulo(titulo);
+				tarea.setDescripcion(descripcion);
+				tarea.setFecha_limite(fecha);
+				tarea.setEstado(estado);
+				tarea.setId_usuario(encargado);
+				tareaService.guardarTarea(tarea);
+				logger.info("Tarea creada: " + sl + tarea + sl);
+			}
 			case 5 -> {
 				logger.info("Ingrese el ID de la tarea a eliminar:");
 				var id = Integer.parseInt(consola.nextLine());
@@ -228,10 +255,39 @@ public class AlgorixToDoListApplication implements CommandLineRunner {
 					logger.info("Tarea eliminada con ID: " + id);
 				}
 			}
-			case 6 -> {}
-			case 7 -> {}
-			case 0 -> {}
-			default -> {}
+			case 6 -> {
+				logger.info("Ingrese la Id de la tarea terminada");
+				var id = Integer.parseInt(consola.nextLine());
+				var tarea = tareaService.buscarTareaPorId(id);
+				if (tarea != null) {
+					tarea.setEstado("terminada");
+					tareaService.guardarTarea(tarea);
+					logger.info("Tarea marcada como terminada: " + sl + tarea + sl);
+				} else {
+					logger.info("Tarea no encontrada con ID: " + sl + id + sl);
+				}
+			}
+			case 7 -> {
+				logger.info("Ingrese la Id de la tarea a editar");
+				var id = Integer.parseInt(consola.nextLine());
+				var tarea = tareaService.buscarTareaPorId(id);
+				if (tarea != null) {
+					logger.info("Ingrese la nueva descripcion de la tarea (actual: " + tarea.getDescripcion() + "):");
+					var descripcion = consola.nextLine();
+					tarea.setDescripcion(descripcion.isEmpty() ? tarea.getDescripcion() : descripcion);
+					tareaService.guardarTarea(tarea);
+					logger.info("Tarea actualizada: " + tarea);
+				} else {
+					logger.info("Tarea no encontrada con ID: " + id);
+				}
+			}
+			case 0 -> {
+				logger.info("Adios, vaquero"+sl+sl);
+				salir=true;
+			}
+			default -> {
+				logger.info(sl + "Opcion no Valiad" + sl);
+			}
 		}
         return salir;
 	}
