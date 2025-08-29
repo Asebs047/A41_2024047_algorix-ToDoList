@@ -16,7 +16,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class AlgorixToDoListApplication implements CommandLineRunner {
 
 	@Autowired
