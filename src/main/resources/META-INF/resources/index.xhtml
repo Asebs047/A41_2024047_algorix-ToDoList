@@ -4,15 +4,50 @@
         xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <tittle>To Do List 2024047</tittle>
+        <title>To Do List 2024047</title>
+
+        <!-- PrimeFlex & PrimeIcons -->
         <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
         <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/themes/primeone-dark.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
     </h:head>
-    <h:body>
-        <p>Hola mundo</p>
+
+    <h:body styleClass="flex flex-column min-h-screen justify-content-between">
+
+        <!-- Títulos centrados -->
+        <div class="text-center mt-6 mb-5">
+            <h1 class="text-5xl font-bold text-white">To Do List</h1>
+            <h3 class="text-2xl text-teal-300 mt-2">Algorix</h3>
+        </div>
+
+        <!-- Contenedor principal con botones -->
+        <div class="flex justify-content-center align-items-center flex-grow-1">
+            <div class="flex gap-6">
+                <!-- Botón Tareas -->
+                <button onclick="location.href='tareas.xhtml'" type="button"
+                        class="flex flex-column align-items-center justify-content-center
+                               w-16rem h-16rem bg-teal-600 text-white border-none
+                               text-xl font-bold border-round-lg shadow-4 hover:bg-teal-700 transition-duration-200">
+                    <i class="pi pi-list text-5xl mb-3"></i>
+                    Tareas
+                </button>
+
+                <!-- Botón Usuarios -->
+                <button onclick="location.href='usuarios.xhtml'" type="button"
+                        class="flex flex-column align-items-center justify-content-center
+                               w-16rem h-16rem bg-teal-600 text-white border-none
+                               text-xl font-bold border-round-lg shadow-4 hover:bg-teal-700 transition-duration-200">
+                    <i class="pi pi-user text-5xl mb-3"></i>
+                    Usuarios
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-4">
+            <p>Emiliano Herrera - 2024047</p>
+            <p>Algorix</p>
+        </footer>
+
     </h:body>
-    <h:footer>
-        <p>Emiliano Herrera - 2024047</p>
-        <p>Algorix</p>
-    </h:footer>
 </h:html>
